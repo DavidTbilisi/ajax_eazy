@@ -25,7 +25,7 @@
                         This.ok();
             }
         };
-        // Open connection;
+        // Open connection and send request;
         this.req.open(this.method, this.url);
         // send request
         if (this.method == "POST") {
@@ -43,12 +43,13 @@
         Ajax.prototype.ok = function () {
             return this.promise
         }
-
-
     }
     return Ajax;
 })();
 var ajax = new Ajax();
 
-console.log(ajax);
+ajax.ok()
+    .then(function(myresponse){
+        console.log(myresponse)
+    });
 
