@@ -2,7 +2,7 @@
 ;var Ajax = (function (){
     function Ajax(obj) {
         obj = obj==undefined? {} : obj;
-        this.req        = new XMLHttpRequest();
+        this.req        = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
         this.method     = obj.method || "GET";
         this.url        = obj.url || 'https://jsonplaceholder.typicode.com/todos/1';
         this.isSync     = obj.isSync === undefined? '': obj.isSync;
@@ -10,37 +10,52 @@
         this.headers    = obj.headers === undefined? '': obj.headers;
         This = this;
         this.ok = new Promise(function(resolve, reject){
-
-
+        function setHeaders(req){
+            if(This.headers != ''){
+                Object.keys(This.headers).forEach(function (p1) {
+                    req.setRequestHeader(p1+'',This.headers[p1]+'');
+                })
+            }
+        }
+        function dataConverted() {
+            var sendData = This.method == 'POST'||This.method == 'post' ?'':'?';
+            Object.keys(This.data).forEach(function (p1) {
+                sendData += p1 +"="+ This.data[p1] + "&";
+            });
+            return sendData = sendData.slice(0,-1);
+        }
         // set handler;
         This.req.onreadystatechange = function () {
             // console.log(this.readyState);
             if (this.readyState == 4 && this.status == 200) {
                 // done ოპერაცია დასრულებულია
-                var response = JSON.parse(this.responseText);
+                try{
+                    var response = JSON.parse(this.responseText);
+                } catch (e){
+                    console.warn(e);
+                    var response = this.responseText;
+                }
                 resolve(response);
                 reject(This.req.status)
             }
         };
-        // Open connection and send request;
-        This.req.open(This.method, This.url, true);
+
         // send request
         if (This.method == "POST" || This.method == 'post') {
+            This.req.open(This.method, This.url, true);
+            setHeaders(This.req);
             This.req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            var sendData = '';
-            Object.keys(This.data).forEach(function (p1, p2, p3) {
-                sendData += p1 +"="+ This.data[p1] + "&";
-            });
-            This.req.send(sendData);
+            This.req.send(dataConverted());
             return this.ok;
         } else {
-            if (This.headers != null) {
-                for (var i = 0; i< This.headers.length; i++) {
-                    var header = This.headers[i].split(',');
-                    This.req.setRequestHeader(header[0],header[1]);
-                }
+            if (This.data != undefined && This.data != '' && This.data != null) {
+                sendData = '' || dataConverted();
+            } else {
+                sendData = '';
             }
-            This.req.send();
+            This.req.open(This.method, This.url+sendData, true);
+            setHeaders(This.req);
+            This.req.send(sendData);
             return this.ok;
         }
             reject('false');
@@ -48,10 +63,10 @@
     }
     return Ajax;
 })();
+
 var ajax = new Ajax({
-    method:"POST",
-    url:"https://httpbin.org/post",
-    data:{name:"david",lname:'chincharashvili'}
+    url:location.href,
+    headers:{mynameis:'david'}
 });
 
 
