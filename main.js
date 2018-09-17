@@ -64,9 +64,16 @@
     return Ajax;
 })();
 
-var ajax = new Ajax({url:location.href});
+var ajax = new Ajax({
+    url:location.href,
+    method:'post',
+    data:{
+        name:'john',
+        lname:'doe'
+    }
+});
 
 
 ajax.ok
-    .then(function(hand) {console.log(hand)})
-    .catch(function(some) {console.log(some)});
+    .then(function(data) {console.log(data)})
+    .catch(function(error) {console.log(error)});
