@@ -64,10 +64,7 @@
     return Ajax;
 })();
 
-var ajax = new Ajax({
-    url:location.href,
-    headers:{mynameis:'david'}
-});
+var ajax = new Ajax({url:location.href});
 
 
 ajax.ok
