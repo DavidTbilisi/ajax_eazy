@@ -57,7 +57,6 @@
             This.req.send(sendData);
             return this.ok;
         }
-            // reject('false');
             });
     }
     return Ajax;
