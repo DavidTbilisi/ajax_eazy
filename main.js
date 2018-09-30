@@ -62,17 +62,17 @@
     }
     return Ajax;
 })();
-
-var ajax = new Ajax({
-    url:location.href+'43',
-    method:'post',
-    data:{
-        name:'john',
-        lname:'doe'
-    }
-});
-
-
-ajax.ok
-    .then(function(data) {console.log(data)})
-    .catch(function(error) {console.log(error)});
+//
+// var ajax = new Ajax({
+//     url:location.href,
+//     method:'post',
+//     data:{
+//         name:'john',
+//         lname:'doe'
+//     }
+// });
+//
+//
+// ajax.ok
+//     .then(function(data) {console.log(data)})
+//     .catch(function(error) {console.log(error)});
