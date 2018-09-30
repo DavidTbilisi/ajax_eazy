@@ -26,9 +26,7 @@
         }
         // set handler;
         This.req.onreadystatechange = function () {
-            // console.log(this.readyState);
             if (this.readyState == 4 && this.status == 200) {
-                // done ოპერაცია დასრულებულია
                 try{
                     var response = this.responseText;
                 } catch (e){
