@@ -30,10 +30,9 @@
             if (this.readyState == 4 && this.status == 200) {
                 // done ოპერაცია დასრულებულია
                 try{
-                    var response = JSON.parse(this.responseText);
+                    var response = this.responseText;
                 } catch (e){
                     console.warn(e);
-                    var response = this.responseText;
                 }
                 resolve(response);
                 reject(This.req.status)
@@ -58,14 +57,14 @@
             This.req.send(sendData);
             return this.ok;
         }
-            reject('false');
+            // reject('false');
             });
     }
     return Ajax;
 })();
 
 var ajax = new Ajax({
-    url:location.href,
+    url:location.href+'43',
     method:'post',
     data:{
         name:'john',
