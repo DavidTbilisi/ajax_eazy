@@ -105,6 +105,8 @@ __default : GET__
 var  ajax = new  Ajax({method:"post"});
 ```
 
+
+
 **data**
 
 ------
