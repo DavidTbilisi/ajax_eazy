@@ -9,7 +9,7 @@
         this.data       = obj.data === undefined? "": obj.data;
         this.headers    = obj.headers === undefined? '': obj.headers;
         This = this;
-        this.ok = new Promise(function(resolve, reject){
+       return new Promise(function(resolve, reject){
         function setHeaders(req){
             if(This.headers != ''){
                 Object.keys(This.headers).forEach(function (p1) {
@@ -60,16 +60,3 @@
     return Ajax;
 })();
 //
-// var ajax = new Ajax({
-//     url:location.href,
-//     method:'post',
-//     data:{
-//         name:'john',
-//         lname:'doe'
-//     }
-// });
-//
-//
-// ajax.ok
-//     .then(function(data) {console.log(data)})
-//     .catch(function(error) {console.log(error)});
