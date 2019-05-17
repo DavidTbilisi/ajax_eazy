@@ -8,5 +8,20 @@
 
 
 <script src="main.js"></script>
+
+<script>
+
+
+var ajax = new Ajax({
+    url:'https://jsonplaceholder.typicode.com/comments',
+});
+
+
+ajax
+    .then(function(data) {console.log(data)})
+    .catch(function(error) {console.log(error)});
+
+</script>
+
 </body>
 </html>
